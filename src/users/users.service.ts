@@ -1,26 +1,65 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './schemas/user.schema';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectModel(User.name) private userModel: mongoose.Model<User>,
+  ) {}
+
+  async findAll(): Promise<User[]> {
+    try {
+      const users = await this.userModel.find();
+      return users;
+    } catch (e) {
+      throw new NotFoundException(e);
+    }
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findOne(id: string): Promise<User> {
+    try {
+      const user = await this.userModel.findById(id);
+      return user;
+    } catch (e) {
+      throw new NotFoundException(e);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    try {
+      const newUser = await this.userModel.create(createUserDto);
+      return newUser;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    try {
+      const userToUpdate = await this.userModel.findByIdAndUpdate(
+        id,
+        updateUserDto,
+        {
+          new: true,
+          runValidators: true,
+        },
+      );
+      return userToUpdate;
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string): Promise<User> {
+    return await this.userModel.findByIdAndDelete(id);
   }
 }
