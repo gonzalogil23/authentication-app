@@ -6,4 +6,8 @@ export class CreateUserDto {
   address: string;
 
   profilePicture: string;
+
+  password: string;
+
+  email: string;
 }

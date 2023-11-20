@@ -77,4 +77,15 @@ export class UsersService {
   async remove(id: string): Promise<User> {
     return await this.userModel.findByIdAndDelete(id);
   }
+
+  async validateUser(email: string): Promise<User> {
+    const user = await this.userModel.findOne({ email: email });
+    console.log(user);
+
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  }
 }
