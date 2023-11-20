@@ -52,7 +52,7 @@ The application will be accessible at http://localhost:3000
 
 ### Postman Collection
 
-- https://api.postman.com/collections/19522659-fbc4e67b-a49f-453c-8b8f-ce1177e80739?access_key=PMAT-01HFPRS0E1NG94JYM27V77QQJG
+- [Api JSON](https://api.postman.com/collections/19522659-fbc4e67b-a49f-453c-8b8f-ce1177e80739?access_key=PMAT-01HFPRS0E1NG94JYM27V77QQJG)
 
 - **Endpoints**
 
