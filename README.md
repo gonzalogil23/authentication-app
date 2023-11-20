@@ -22,24 +22,33 @@ Before running the application, make sure you have the following installed:
 
 2. **Install Dependencies**
 
-````bash
+```bash
 npm install
 
+```
+
 3. **Environment Variables**
-Create a .env file in the root of the project and define the necessary environment variables. Here it is a sample .env file:
+   Create a .env file in the root of the project and define the necessary environment variables. Here it is a sample .env file:
+
 ```env
 JWT_SECRET=secretkey
 MONGODB_URI=mongodb://mongodb/users-authentication
 
+```
+
 4. **Dockerize MongoDB:**
+
 ```bash
 docker-compose up -d
+```
 
 5. **Run the aplication:**
+
 ```bash
 npm run start
-The application will be accessible at http://localhost:3000
+```
 
+The application will be accessible at http://localhost:3000
 
 ### Postman Collection
 
@@ -48,32 +57,48 @@ The application will be accessible at http://localhost:3000
 - **Endpoints**
 
 1. Sign Up - Creates an User
-  ```http
-  POST /auth/signup
+
+```http
+POST /auth/signup
+```
 
 2. Sign In - Return access token
-  ```http
-  POST /auth/signin
+
+```http
+POST /auth/signin
+```
 
 3. Create User
-  ```http
-  POST /users
+
+```http
+POST /users
+```
 
 4. Get Users
+
 ```http
 GET /users
+```
 
 5. Get User by Id
+
 ```http
 GET /users/:id
+```
 
 6. Update User
+
 ```http
 PATCH /users/:id
+```
 
 7. Remove User
+
 ```http
 DELETE /users/:id
+```
 
+### Authentication and JWT:
 
-````
+- The application uses JWT for user authentication. When a user is created or logs in, a JWT is generated and returned.
+- Include the JWT in the Authorization header for authenticated requests: Authorization: Bearer YOUR_JWT_TOKEN.
